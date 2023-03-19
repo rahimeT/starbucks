@@ -2,7 +2,7 @@ import React from 'react';
 
 const Categories = () => {
   return (
-    <ul className='flex flex-col gap-6 relative group '>
+    <ul className='flex md:flex-col gap-8'>
       <li className='underline underline-offset-8 text-3xl'>
         <span>İçecekler</span>
       </li>

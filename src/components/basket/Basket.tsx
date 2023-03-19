@@ -8,7 +8,7 @@ import {
 } from '@ant-design/icons';
 const Basket = () => {
   return (
-    <div className='cart flex h-full max-h-[calc(100vh_-_190px)] flex-col'>
+    <div className='cart flex h-full max-h-[calc(100vh_-_190px)] flex-col justify-center align-middle'>
       <h2 className='bg-white shadow-md text-black text-center font-bold tracking-wide p-6 underline underline-offset-6 text-3xl'>
         Basket
       </h2>

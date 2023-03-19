@@ -1,25 +1,18 @@
 import React from 'react';
 import './App.css';
-import Basket from './components/basket/Basket';
-import Categories from './components/categories/Categories';
-import Header from './components/header/Header';
-import Products from './components/products/Products';
+import MainPage from './pages/MainPage';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import BasketPage from './pages/BasketPage';
 
 const App = () => {
   return (
     <>
-      <Header />
-      <div className='home gap-8 flex justify-between p-6'>
-        <div className='categories  '>
-          <Categories />
-        </div>
-        <div className='products flex-[4]'>
-          <Products />
-        </div>
-        <div className='basket min-w-[240px] max-w-[400px] md:-mr-[24px] border '>
-          <Basket />
-        </div>
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<MainPage />} />
+          <Route path='/cart' element={<BasketPage />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 };
