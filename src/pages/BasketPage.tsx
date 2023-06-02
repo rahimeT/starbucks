@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/header/Header';
-import { Button, Card, Table } from 'antd';
+import { Button, Card, Table, Modal } from 'antd';
+import CreateBill from '../components/basket/CreateBill';
 
 const BasketPage = () => {
   const dataSource = [
@@ -35,6 +36,16 @@ const BasketPage = () => {
       key: 'address',
     },
   ];
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
   return (
     <>
       <Header />
@@ -43,7 +54,7 @@ const BasketPage = () => {
           dataSource={dataSource}
           columns={columns}
           bordered
-          pagination={false}
+          pagination={true}
         />
         <div className='cart-total flex justify-end mt-4'>
           {/* @ts-ignore */}
@@ -60,12 +71,22 @@ const BasketPage = () => {
               <b>Toplam</b>
               <b>592.92₺</b>
             </div>
-            <Button className='mt-4 w-full' type='primary' size='large'>
+            <Button
+              className='mt-4 w-full'
+              type='primary'
+              size='large'
+              onClick={showModal}
+            >
               Sipariş Oluştur
             </Button>
           </Card>
         </div>
       </div>
+      <CreateBill
+        isModalOpen={isModalOpen}
+        handleCancel={handleCancel}
+        handleOk={handleOk}
+      />
     </>
   );
 };
