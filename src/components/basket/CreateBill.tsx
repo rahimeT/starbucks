@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  Button,
-  Switch,
-  Form,
-  Input,
-  Modal,
-  DatePicker,
-  Select,
-  Card,
-} from 'antd';
+import { Button, Switch, Form, Input, Modal, Select, Card } from 'antd';
 
 const CreateBill = ({ isModalOpen, handleOk, handleCancel }: any) => {
   const onFinish = (values: any) => {
@@ -64,10 +55,6 @@ const CreateBill = ({ isModalOpen, handleOk, handleCancel }: any) => {
               {/* @ts-ignore */}
               <Select.Option value='card'>kredi kart</Select.Option>
             </Select>
-          </Form.Item>
-
-          <Form.Item label='Siparis Tarihi' name='date'>
-            <DatePicker placeholder='Tarih' />
           </Form.Item>
 
           <Form.Item label='Eve Servis' name='toHome' valuePropName='checked'>

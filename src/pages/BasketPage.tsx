@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Header from '../components/header/Header';
-import { Button, Card, Table, Modal } from 'antd';
+import { Button, Card, Table } from 'antd';
 import CreateBill from '../components/basket/CreateBill';
 
 const BasketPage = () => {

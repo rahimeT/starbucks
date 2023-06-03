@@ -41,11 +41,12 @@ const Header = () => {
           />
         </div>
         <div className='header-menu flex justify-between items-center gap-10 md:static fixed z-10 bottom-0 md:w-auto w-screen md:transparent bg-white left-0 md:border-t-0 border-t md:p-0 p-4'>
-          <Badge count={5} offset={[0, 0]}>
+          <Badge count={1} offset={[0, 0]}>
             <NavLink
               style={({ isActive }) => {
                 return {
                   color: isActive ? '#54399e' : '',
+                  borderBottom: isActive ? '5px solid ' : '',
                 };
               }}
               to={'/cart'}
@@ -56,69 +57,61 @@ const Header = () => {
                 shape='square'
                 size='large'
               />
-              <span className='md:text-[18px] text-[12px]'>Basket</span>
+              <span className='md:text-[18px] text-[12px]'>Sepet</span>
             </NavLink>
           </Badge>
           <NavLink
-            to={'/'}
+            to={'/bills'}
             style={({ isActive }) => {
               return {
                 color: isActive ? '#40a9ff' : '',
+                borderBottom: isActive ? '5px solid ' : '',
               };
             }}
             className='menu-link flex flex-col hover:text-[#40a9ff] transition-all'
           >
             <FileDoneOutlined className='md:text-3xl text-xl ' />
-            <span className='md:text-[18px] text-[12px]'>Bills</span>
+            <span className='md:text-[18px] text-[12px]'>Faturalar</span>
           </NavLink>
 
           <NavLink
-            to={'/'}
+            to={'/statistic'}
             style={({ isActive }) => {
               return {
                 color: isActive ? '#cce751' : '',
+                borderBottom: isActive ? '5px solid ' : '',
               };
             }}
             className='menu-link flex flex-col hover:text-[#cce751] transition-all'
           >
             <PieChartOutlined className='md:text-3xl text-xl ' />
-            <span className='md:text-[18px] text-[12px]'>Statistic</span>
+            <span className='md:text-[18px] text-[12px]'>İstatistik</span>
           </NavLink>
           <NavLink
             style={({ isActive }) => {
               return {
                 color: isActive ? '#2fbc49' : '',
+                borderBottom: isActive ? '5px solid ' : '',
               };
             }}
-            to={'/'}
+            to={'/customer'}
             className='menu-link flex flex-col hover:text-[#2fbc49] transition-all'
           >
             <ProfileOutlined className='md:text-3xl text-xl ' />
-            <span className='md:text-[18px] text-[12px]'>Customers</span>
-          </NavLink>
-          <NavLink
-            style={({ isActive }) => {
-              return {
-                color: isActive ? '#8e4072' : '',
-              };
-            }}
-            to={'/'}
-            className='menu-link flex flex-col hover:text-[#8e4072] transition-all'
-          >
-            <EnvironmentOutlined className='md:text-3xl text-xl ' />
-            <span className='md:text-[18px] text-[12px]'>Our Stores</span>
+            <span className='md:text-[18px] text-[12px]'>Müşteri</span>
           </NavLink>
           <NavLink
             style={({ isActive }) => {
               return {
                 color: isActive ? '#d83232' : '',
+                borderBottom: isActive ? '5px solid ' : '',
               };
             }}
             to={'/'}
             className='menu-link flex flex-col hover:text-[#d83232] transition-all'
           >
             <LogoutOutlined className='md:text-3xl text-xl' />
-            <span className='md:text-[18px] text-[12px]'>Log Out</span>
+            <span className='md:text-[18px] text-[12px]'>Çıkış</span>
           </NavLink>
         </div>
       </header>
