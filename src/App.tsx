@@ -6,6 +6,8 @@ import BasketPage from './pages/BasketPage';
 import CustomerPage from './pages/CustomerPage';
 import BillPage from './pages/BillPage';
 import StatisticPage from './pages/StatisticPage';
+import RegisterPage from './pages/auth/RegisterPage';
+import LoginPage from './pages/auth/LoginPage';
 
 const App = () => {
   return (
@@ -17,6 +19,8 @@ const App = () => {
           <Route path='/customer' element={<CustomerPage />} />
           <Route path='/bills' element={<BillPage />} />
           <Route path='/statistic' element={<StatisticPage />} />
+          <Route path='/register' element={<RegisterPage />} />
+          <Route path='/login' element={<LoginPage />} />
         </Routes>
       </BrowserRouter>
     </>
