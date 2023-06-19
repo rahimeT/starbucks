@@ -18,7 +18,7 @@ const Products = () => {
             <span className='text-3xl font-bold text-gray-900 '>$599</span>
             <a
               href='/'
-              className=' bg-green-900 hover:bg-white text-white text-l hover:text-green-900 font-bold py-4 px-6 rounded'
+              className='bg-green-900 hover:bg-white text-white text-l hover:text-green-900 font-bold py-4 px-6 rounded'
             >
               Add to cart
             </a>

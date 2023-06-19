@@ -1,80 +1,56 @@
 import React from 'react';
+import { PlusOutlined, EditOutlined } from '@ant-design/icons';
+import { useState } from 'react';
+import AddCategory from './AddCategory';
+import './style.css';
+import EditCategory from './EditCategory';
 
-const Categories = () => {
+const Categories = ({ categoriesData, setCategoriesData }: any) => {
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   return (
-    <ul className='flex md:flex-col gap-8'>
-      <li className='underline underline-offset-8 text-3xl'>
-        <span>İçecekler</span>
-      </li>
-      <li className='transition ease-in-out delay-150 hover:-translate-y-1 duration-300 min-w-[200px] cursor-pointer text-xl text-gray-400 hover:text-black'>
-        <span>Espresso Bazlı İçecekler</span>
-      </li>
-      <li className='transition ease-in-out delay-150 hover:-translate-y-1 duration-300 min-w-[200px] cursor-pointer text-xl text-gray-400 hover:text-black'>
-        <span>Filtre Kahveler</span>
-      </li>
-      <li className='transition ease-in-out delay-150 hover:-translate-y-1 duration-300 min-w-[200px] cursor-pointer text-xl text-gray-400 hover:text-black'>
-        <span>Türk Kahvesi</span>
-      </li>
-      <li className='transition ease-in-out delay-150 hover:-translate-y-1 duration-300 min-w-[200px] cursor-pointer text-xl text-gray-400 hover:text-black'>
-        <span>Starbucks Refresha® Drinks</span>
-      </li>
-      <li className='transition ease-in-out delay-150 hover:-translate-y-1 duration-300 min-w-[200px] cursor-pointer text-xl text-gray-400 hover:text-black'>
-        <span>Teavana™ Sıcak Çaylar</span>
-      </li>
-      <li className='transition ease-in-out delay-150 hover:-translate-y-1 duration-300 min-w-[200px] cursor-pointer text-xl text-gray-400 hover:text-black'>
-        <span>Teavana™ Tea Latte</span>
-      </li>
-      <li className='transition ease-in-out delay-150 hover:-translate-y-1 duration-300 min-w-[200px] cursor-pointer text-xl text-gray-400 hover:text-black'>
-        <span>Buzlu Çaylar</span>
-      </li>
-      <li className='transition ease-in-out delay-150 hover:-translate-y-1 duration-300 min-w-[200px] cursor-pointer text-xl text-gray-400 hover:text-black'>
-        <span>Frappuccino® Karışımlari</span>
-      </li>
-      <li className='transition ease-in-out delay-150 hover:-translate-y-1 duration-300 min-w-[200px] cursor-pointer text-xl text-gray-400 hover:text-black'>
-        <span>Sıcak Çikolatalar</span>
-      </li>
-      <li className='transition ease-in-out delay-150 hover:-translate-y-1 duration-300 min-w-[200px] cursor-pointer text-xl text-gray-400 hover:text-black'>
-        <span>Şişelenmiş</span>
-      </li>
-      <br />
-      <li className='underline underline-offset-8 text-3xl '>
-        <span>Yiyecekler</span>
-      </li>
-      <li className='transition ease-in-out delay-150 hover:-translate-y-1 duration-300 min-w-[200px] cursor-pointer text-xl text-gray-400 hover:text-black'>
-        <span>Pasta ve Kekler</span>
-      </li>
-      <li className='transition ease-in-out delay-150 hover:-translate-y-1 duration-300 min-w-[200px] cursor-pointer text-xl text-gray-400 hover:text-black'>
-        <span>Cheesecakeler</span>
-      </li>
-      <li className='transition ease-in-out delay-150 hover:-translate-y-1 duration-300 min-w-[200px] cursor-pointer text-xl text-gray-400 hover:text-black'>
-        <span>Muffin & Cookie</span>
-      </li>
-      <li className='transition ease-in-out delay-150 hover:-translate-y-1 duration-300 min-w-[200px] cursor-pointer text-xl text-gray-400 hover:text-black'>
-        <span>Kahvaltılık Ürünler</span>
-      </li>
-      <li className='transition ease-in-out delay-150 hover:-translate-y-1 duration-300 min-w-[200px] cursor-pointer text-xl text-gray-400 hover:text-black'>
-        <span>Sandviçler</span>
-      </li>
-      <li className='transition ease-in-out delay-150 hover:-translate-y-1 duration-300 min-w-[200px] cursor-pointer text-xl text-gray-400 hover:text-black'>
-        <span>Salata Ve Parfeler</span>
-      </li>
-      <li className='transition ease-in-out delay-150 hover:-translate-y-1 duration-300 min-w-[200px] cursor-pointer text-xl text-gray-400 hover:text-black'>
-        <span>Atıştırmalıklar</span>
-      </li>
-      <br />
-      <li className='underline underline-offset-8 text-3xl'>
-        <span>Evde Kahve Keyfi</span>
-      </li>
-      <li className='transition ease-in-out delay-150 hover:-translate-y-1 duration-300 min-w-[200px] cursor-pointer text-xl text-gray-400 hover:text-black'>
-        <span>Çekirdek Kahveler</span>
-      </li>
-      <li className='transition ease-in-out delay-150 hover:-translate-y-1 duration-300 min-w-[200px] cursor-pointer text-xl text-gray-400 hover:text-black'>
-        <span>VIA</span>
-      </li>
-      <li className='transition ease-in-out delay-150 hover:-translate-y-1 duration-300 min-w-[200px] cursor-pointer text-xl text-gray-400 hover:text-black'>
-        <span>Kapsül Kahveler</span>
-      </li>
-    </ul>
+    <>
+      <ul className='flex md:flex-col gap-8'>
+        {categoriesData &&
+          categoriesData.map((item: any) => (
+            <li
+              className='category-item transition  duration-300 ease-in-out'
+              key={item._id}
+            >
+              <span>{item.title}</span>
+            </li>
+          ))}
+        <hr className='hr-style' />
+        <li
+          className='category-item !bg-purple-800 hover:opacity-90'
+          onClick={() => setIsAddModalOpen(true)}
+        >
+          <div className='icon add-icon p-5'>
+            <PlusOutlined className='md:text-3xl' />
+          </div>
+        </li>
+        <li
+          className='category-item !bg-purple-800 hover:opacity-90'
+          onClick={() => setIsEditModalOpen(true)}
+        >
+          <div className='icon edit-icon p-5'>
+            <EditOutlined className='md:text-3xl' />
+          </div>
+        </li>
+        <AddCategory
+          isAddModalOpen={isAddModalOpen}
+          setIsAddModalOpen={setIsAddModalOpen}
+          categoriesData={categoriesData}
+          setCategoriesData={setCategoriesData}
+        />
+        <EditCategory
+          isEditModalOpen={isEditModalOpen}
+          setIsEditModalOpen={setIsEditModalOpen}
+          categoriesData={categoriesData}
+          setCategoriesData={setCategoriesData}
+        />
+      </ul>
+    </>
   );
 };
 

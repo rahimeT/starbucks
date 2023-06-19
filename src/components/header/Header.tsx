@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   CoffeeOutlined,
-  EnvironmentOutlined,
   LogoutOutlined,
   FileDoneOutlined,
   ProfileOutlined,
@@ -14,7 +13,7 @@ import { NavLink } from 'react-router-dom';
 
 const Header = () => {
   return (
-    <div className='border-b mb-8 '>
+    <div className='border-b  '>
       <header className='p-6 flex justify-between items-center gap-10'>
         <div className='header-logo flex items-center gap-6'>
           <div className='header-logo-img'>

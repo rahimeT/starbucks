@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import MainPage from './pages/MainPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import BasketPage from './pages/BasketPage';
