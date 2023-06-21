@@ -32,6 +32,7 @@ const AddCategory = ({
       onCancel={() => setIsAddModalOpen(false)}
       footer={false}
     >
+      <br />
       <Form layout='vertical' onFinish={onFinish} form={form}>
         <Form.Item
           name='title'
@@ -41,8 +42,16 @@ const AddCategory = ({
           <Input />
         </Form.Item>
         <Form.Item className='flex justify-end mb-0'>
-          <Button type='primary' htmlType='submit'>
-            Oluştur
+          <Button
+            type='text'
+            htmlType='submit'
+            style={{
+              backgroundColor: '#00704a',
+              color: 'white',
+            }}
+            size='large'
+          >
+            Yeni Kategori Oluştur
           </Button>
         </Form.Item>
       </Form>

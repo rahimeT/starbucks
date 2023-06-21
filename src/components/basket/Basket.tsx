@@ -10,7 +10,7 @@ const Basket = () => {
   return (
     <div className='cart flex h-full max-h-[calc(100vh_-_190px)] flex-col justify-center align-middle'>
       <h2 className='bg-white shadow-md text-black text-center font-bold tracking-wide p-6 underline underline-offset-6 text-3xl'>
-        Basket
+        Sepet
       </h2>
       <ul className='cart-items p-2 flex flex-col gap-y-6 overflow-y-auto'>
         <li className='cart-item'>
@@ -67,21 +67,23 @@ const Basket = () => {
           <div className='p-4 flex flex-col gap-4'>
             <div>
               <Button
+                type='text'
                 icon={<ShoppingOutlined />}
                 size='large'
-                className=' flex items-center justify-center w-full hover:bg-white  text-white font-semibold hover:text-green-900 py-2 px-4 rounded bg-green-900'
+                className=' flex items-center justify-center w-full text-white font-semibold hover:text-green-900 py-2 px-4 rounded bg-green-900'
               >
-                Siparis Ver!
+                Sipariş Ver!
               </Button>
             </div>
             <div>
               <Button
+                type='text'
                 icon={<DeleteOutlined />}
                 size='large'
                 className='
-                 flex items-center justify-center w-full bg-red-900 hover:bg-white  text-white font-semibold hover:text-red-900 py-2 px-4 rounded'
+                 flex items-center justify-center w-full bg-red-900 text-white font-semibold hover:text-red-900 py-2 px-4 rounded'
               >
-                Siparisi temizle!
+                Siparişi Temizle
               </Button>
             </div>
           </div>

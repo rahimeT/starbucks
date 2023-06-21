@@ -1,4 +1,4 @@
-import { Button, Form, Input, message, Modal, Table, Popconfirm } from 'antd';
+import { Button, Form, Input, message, Modal, Table } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { SaveFilled, DeleteFilled, EditFilled } from '@ant-design/icons';
 
@@ -11,7 +11,6 @@ const EditCategory = ({
   const [editingRow, setEditingRow] = useState({});
   const [deleteRow, setDeleteRow] = useState({});
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  console.log('deleteRow', deleteRow);
 
   const showModal = () => {
     setIsDeleteModalOpen(true);

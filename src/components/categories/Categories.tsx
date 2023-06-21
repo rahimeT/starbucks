@@ -14,7 +14,7 @@ const Categories = ({ categoriesData, setCategoriesData }: any) => {
         {categoriesData &&
           categoriesData.map((item: any) => (
             <li
-              className='category-item transition  duration-300 ease-in-out'
+              className='category-item transition duration-300 ease-in-out'
               key={item._id}
             >
               <span>{item.title}</span>
@@ -22,18 +22,18 @@ const Categories = ({ categoriesData, setCategoriesData }: any) => {
           ))}
         <hr className='hr-style' />
         <li
-          className='category-item !bg-purple-800 hover:opacity-90'
+          className='category-item hover:opacity-90'
           onClick={() => setIsAddModalOpen(true)}
         >
-          <div className='icon add-icon p-5'>
+          <div className='icon add-icon'>
             <PlusOutlined className='md:text-3xl' />
           </div>
         </li>
         <li
-          className='category-item !bg-purple-800 hover:opacity-90'
+          className='category-item hover:opacity-90'
           onClick={() => setIsEditModalOpen(true)}
         >
-          <div className='icon edit-icon p-5'>
+          <div className='icon edit-icon'>
             <EditOutlined className='md:text-3xl' />
           </div>
         </li>

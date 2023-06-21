@@ -7,6 +7,7 @@ import BillPage from './pages/BillPage';
 import StatisticPage from './pages/StatisticPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import LoginPage from './pages/auth/LoginPage';
+import ProductsSettings from './pages/ProductsSettings';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route path='/statistic' element={<StatisticPage />} />
           <Route path='/register' element={<RegisterPage />} />
           <Route path='/login' element={<LoginPage />} />
+          <Route path='/products' element={<ProductsSettings />} />
         </Routes>
       </BrowserRouter>
     </>

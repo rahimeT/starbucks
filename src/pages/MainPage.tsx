@@ -6,6 +6,7 @@ import Products from '../components/products/Products';
 
 const MainPage = () => {
   const [categoriesData, setCategoriesData] = useState<any[]>([]);
+  const [productsData, setProductsData] = useState<any[]>([]);
 
   const getAllCategories = async () => {
     try {
@@ -13,7 +14,25 @@ const MainPage = () => {
         'http://localhost:5005/api/categories/get-all-categories'
       );
       const data = await res.json();
-      setCategoriesData(data);
+      data &&
+        setCategoriesData(
+          data.map((item: any) => {
+            // antd select menüsünde value'ya göre seçtirdiği için title'i özel bir değere atadık
+            return { ...item, value: item.title };
+          })
+        );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getAllProducts = async () => {
+    try {
+      const res = await fetch(
+        'http://localhost:5005/api/products/get-all-products'
+      );
+      const data = await res.json();
+      setProductsData(data);
     } catch (error) {
       console.log(error);
     }
@@ -21,6 +40,7 @@ const MainPage = () => {
 
   useEffect(() => {
     getAllCategories();
+    getAllProducts();
   }, []);
 
   return (
@@ -35,10 +55,16 @@ const MainPage = () => {
             />
           )}
         </div>
-        <div className='products flex-[4]  max-h-[calc(100vh_-_160px)] overflow-y-auto pb-10'>
-          <Products />
+        <div className='products flex-[4] max-h-[calc(100vh_-_160px)] overflow-y-auto pb-4'>
+          {productsData && categoriesData && (
+            <Products
+              categoriesData={categoriesData}
+              productsData={productsData}
+              setProductsData={setProductsData}
+            />
+          )}
         </div>
-        <div className='basket min-w-[200px] max-w-[400px]  border '>
+        <div className='basket min-w-[200px] max-w-[360px]  border '>
           <Basket />
         </div>
       </div>
