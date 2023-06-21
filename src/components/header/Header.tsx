@@ -35,7 +35,7 @@ const Header = () => {
           <Input
             placeholder='search anything else'
             size='large'
-            prefix={<CoffeeOutlined className='md:text-xl text-l' />}
+            prefix={<CoffeeOutlined className='text-2xl mb-2' />}
             className='rounded-full max-w-[1200] h-14 border-b-2 border-green-600 focus-within:border-green-600'
           />
         </div>

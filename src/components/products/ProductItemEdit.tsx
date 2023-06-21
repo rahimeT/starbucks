@@ -9,8 +9,6 @@ const ProductItemEdit = () => {
 
   const [form] = Form.useForm();
 
-  console.log('editingRecord', editingRecord);
-
   const handleRecord = (record: any) => {
     setIsEditModalOpen(true);
     setEditingRecord(record);
@@ -204,7 +202,7 @@ const ProductItemEdit = () => {
         }}
       />
       <Modal
-        title='Yeni Ürün Ekle'
+        title='Ürün Güncelleme'
         open={isEditModalOpen}
         onCancel={() => setIsEditModalOpen(false)}
         footer={false}
@@ -249,7 +247,6 @@ const ProductItemEdit = () => {
           >
             <Select
               showSearch
-              placeholder='Kategori Seçin'
               optionFilterProp='children'
               filterOption={(input, option) =>
                 (option?.title ?? '').includes(input)
