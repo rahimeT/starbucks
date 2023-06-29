@@ -10,8 +10,13 @@ import {
 import { Input } from 'antd';
 import { Badge } from 'antd';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import './index.css';
 
 const Header = () => {
+  // @ts-ignore
+  const basket = useSelector((state) => state.basket);
+
   return (
     <div className='border-b  '>
       <header className='p-6 flex justify-between items-center gap-10'>
@@ -33,14 +38,18 @@ const Header = () => {
         </div>
         <div className='header-search flex-1'>
           <Input
-            placeholder='search anything else'
+            placeholder='Ne aramıştınız?'
             size='large'
             prefix={<CoffeeOutlined className='text-2xl mb-2' />}
             className='rounded-full max-w-[1200] h-14 border-b-2 border-green-600 focus-within:border-green-600'
           />
         </div>
         <div className='header-menu flex justify-between items-center gap-10 md:static fixed z-10 bottom-0 md:w-auto w-screen md:transparent bg-white left-0 md:border-t-0 border-t md:p-0 p-4'>
-          <Badge count={1} offset={[0, 0]}>
+          <Badge
+            count={basket.basketItems.length}
+            offset={[0, 0]}
+            style={{ backgroundColor: '#00704a' }}
+          >
             <NavLink
               style={({ isActive }) => {
                 return {
@@ -51,11 +60,7 @@ const Header = () => {
               to={'/cart'}
               className='menu-link flex flex-col hover:text-[#54399e] transition-all'
             >
-              <ShoppingCartOutlined
-                className='md:text-4xl text-2xl '
-                shape='square'
-                size='large'
-              />
+              <ShoppingCartOutlined className='md:text-4xl text-2xl' />
               <span className='md:text-[18px] text-[12px]'>Sepet</span>
             </NavLink>
           </Badge>
@@ -72,7 +77,6 @@ const Header = () => {
             <FileDoneOutlined className='md:text-3xl text-xl ' />
             <span className='md:text-[18px] text-[12px]'>Faturalar</span>
           </NavLink>
-
           <NavLink
             to={'/statistic'}
             style={({ isActive }) => {

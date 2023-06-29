@@ -1,23 +1,72 @@
 import React from 'react';
-import { Button, Switch, Form, Input, Modal, Select, Card } from 'antd';
+import {
+  Button,
+  Switch,
+  Form,
+  Input,
+  Modal,
+  Select,
+  Card,
+  message,
+} from 'antd';
+import { emptyBasket } from '../../redux/features/BasketSlice';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-const CreateBill = ({ isModalOpen, handleOk, handleCancel }: any) => {
+const CreateBill = ({
+  isModalOpen,
+  handleOk,
+  handleCancel,
+  subTotal,
+  taxTotal,
+  cartItems,
+  total,
+  setIsModalOpen,
+}: any) => {
+  const [form] = Form.useForm();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const onFinish = (values: any) => {
-    console.log('Success:', values);
+    try {
+      fetch('http://localhost:5005/api/bills/create-bill', {
+        method: 'POST',
+        body: JSON.stringify({
+          ...values,
+          tax: taxTotal,
+          totalAmount: total,
+          subTotal,
+          cartItems,
+        }),
+        headers: { 'Content-type': 'application/json; charset=UTF-8' },
+      });
+      message.success('Sipariş başarıyla oluşturuldu.');
+      form.resetFields();
+      setIsModalOpen(false);
+      dispatch(emptyBasket());
+      navigate('/bills');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
+    message.error(
+      'Sipariş oluşturulurken beklenmedik bir hata oluştu!',
+      errorInfo
+    );
   };
   return (
     <>
       <Modal
-        title='Fatura Olustur'
+        footer={false}
+        title='Fatura Oluştur'
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
       >
         <Form
+          form={form}
           name='basic'
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
@@ -27,37 +76,48 @@ const CreateBill = ({ isModalOpen, handleOk, handleCancel }: any) => {
           autoComplete='off'
         >
           <Form.Item
-            label='Musteri adi'
-            name='username'
+            label='Müşteri Adı'
+            name='customerName'
             rules={[{ required: true, message: 'Müşteri adını girin!' }]}
           >
-            <Input placeholder='Müşteri adı' />
+            <Input placeholder='İsim' />
           </Form.Item>
 
           <Form.Item
-            label='Musteri telefon'
-            name='phone'
+            label='Müşteri Telefon'
+            name='customerPhoneNumber'
             rules={[
               { required: true, message: 'Müşteri telefon numarasını girin!' },
             ]}
           >
-            <Input placeholder='Müşteri telefonu' maxLength={11} />
+            <Input placeholder='Telefon' maxLength={11} />
+          </Form.Item>
+          <Form.Item
+            label='Müşteri Adresi'
+            name='customerAddress'
+            rules={[{ required: true, message: 'Müşteri adresini girin!' }]}
+          >
+            <Input placeholder='Adres' />
           </Form.Item>
 
           <Form.Item
-            label='Odeme Yontemi'
-            name='pay'
+            label='Ödeme Yöntemi'
+            name='paymentMode'
             rules={[{ required: true, message: 'Ödeme Yöntemini Seçin!' }]}
           >
             <Select placeholder='Ödeme yöntemi seçin'>
               {/* @ts-ignore */}
-              <Select.Option value='cash'>nakit</Select.Option>
+              <Select.Option value='Nakit'>Nakit</Select.Option>
               {/* @ts-ignore */}
-              <Select.Option value='card'>kredi kart</Select.Option>
+              <Select.Option value='Kart'>Kredi Kartı</Select.Option>
             </Select>
           </Form.Item>
 
-          <Form.Item label='Eve Servis' name='toHome' valuePropName='checked'>
+          <Form.Item
+            label='Eve Servis'
+            name='isForHome'
+            valuePropName='checked'
+          >
             <Switch />
           </Form.Item>
           <br />
@@ -66,21 +126,25 @@ const CreateBill = ({ isModalOpen, handleOk, handleCancel }: any) => {
           <Card className='w-100'>
             <div className='flex justify-between'>
               <span>Ara Toplam</span>
-              <span>549.00₺</span>
+              <span>{subTotal}₺</span>
             </div>
             <div className='flex justify-between my-2'>
               <span>KDV Toplam %8</span>
-              <span className='text-red-600'>+43.92₺</span>
+              <span className='text-red-600'>+{taxTotal}₺</span>
             </div>
             <div className='flex justify-between'>
               <b>Toplam</b>
-              <b>592.92₺</b>
+              <b>{total}₺</b>
             </div>
             <Button
               htmlType='submit'
               className='mt-4 w-full'
-              type='primary'
               size='large'
+              type='text'
+              style={{
+                backgroundColor: '#00704a',
+                color: 'white',
+              }}
             >
               Sipariş Oluştur
             </Button>

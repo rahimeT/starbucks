@@ -3,10 +3,13 @@ import Basket from '../components/basket/Basket';
 import Categories from '../components/categories/Categories';
 import Header from '../components/header/Header';
 import Products from '../components/products/Products';
+import { useSelector } from 'react-redux';
 
 const MainPage = () => {
   const [categoriesData, setCategoriesData] = useState<any[]>([]);
   const [productsData, setProductsData] = useState<any[]>([]);
+  // @ts-ignore
+  const basket = useSelector((state) => state.basket);
 
   const getAllCategories = async () => {
     try {
@@ -64,9 +67,11 @@ const MainPage = () => {
             />
           )}
         </div>
-        <div className='basket min-w-[200px] max-w-[360px]  border '>
-          <Basket />
-        </div>
+        {basket.basketItems.length > 0 && (
+          <div className='basket min-w-[200px] max-w-[400px] border '>
+            <Basket />
+          </div>
+        )}
       </div>
     </>
   );

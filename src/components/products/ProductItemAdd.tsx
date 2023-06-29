@@ -17,7 +17,7 @@ const ProductItemAdd = ({
         body: JSON.stringify(values),
         headers: { 'Content-type': 'application/json; charset=UTF-8' },
       });
-      message.success('Ürün başarıyla eklendi.');
+      message.success('Ürün başarıyla oluşturuldu.');
       form.resetFields();
       setProductsData([...productsData, values]);
       setIsAddModalOpen(false);

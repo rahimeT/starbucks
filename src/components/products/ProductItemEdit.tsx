@@ -197,8 +197,8 @@ const ProductItemEdit = () => {
         columns={columns}
         rowKey={'_id'}
         scroll={{
-          x: 1000,
-          y: 650,
+          x: 1200,
+          y: 300,
         }}
       />
       <Modal

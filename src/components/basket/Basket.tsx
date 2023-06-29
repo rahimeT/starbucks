@@ -1,95 +1,83 @@
 import React from 'react';
-import { Button } from 'antd';
-import {
-  PlusOutlined,
-  MinusOutlined,
-  ShoppingOutlined,
-  DeleteOutlined,
-} from '@ant-design/icons';
+import { Button, message } from 'antd';
+import { ShoppingOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import BasketItem from './BasketItem';
+import { emptyBasket } from '../../redux/features/BasketSlice';
+import { useNavigate } from 'react-router-dom';
 const Basket = () => {
+  // @ts-ignore
+  const basket = useSelector((state) => state.basket);
+  const dispatch = useDispatch();
+
+  const handleEmptyBasket = () => {
+    dispatch(emptyBasket());
+    message.success('Sepet temizlendi!');
+  };
+  const navigate = useNavigate();
+
+  // const calculateTotalValue = (items: any) => {
+  //   let total = 0;
+
+  //   for (let i = 0; i < items.length; i++) {
+  //     let obje = items[i];
+  //     let adet = obje.quantity;
+  //     let fiyat = obje.price;
+
+  //     let objeToplam = adet * fiyat;
+  //     total += objeToplam;
+  //   }
+
+  //   return total;
+  // };
+
+  // let totalValue = calculateTotalValue(basket.basketItems);
+
   return (
-    <div className='cart flex h-full max-h-[calc(100vh_-_190px)] flex-col justify-center align-middle'>
-      <h2 className='bg-white shadow-md text-black text-center font-bold tracking-wide p-6 underline underline-offset-6 text-3xl'>
-        Sepet
-      </h2>
-      <ul className='cart-items p-2 flex flex-col gap-y-6 overflow-y-auto'>
-        <li className='cart-item'>
-          <div className='flex justify-center'>
-            <div className='flex flex-col rounded-lg  shadow-lg dark:bg-green-900 md:max-w-xl md:flex-row'>
-              <img
-                className='h-64 w-full rounded-t-lg object-cover md:h-auto md:w-32 md:rounded-none md:rounded-l-lg'
-                src='https://mdbootstrap.com/wp-content/uploads/2020/06/vertical.jpg'
-                alt=''
-              />
-              <div className='flex flex-col justify-start p-6 gap-8'>
-                <h5 className=' text-2xl font-medium text-neutral-800 dark:text-neutral-50 '>
-                  Card title
-                </h5>
-                <p className='mb-6 text-base text-neutral-600 dark:text-neutral-400 italic break-all'>
-                  This is a wider card with supporting text below as a natural
-                  lead-in to additional content. This content is a little bit
-                  longer.
-                </p>
-                <div className='flex flex-row gap-x-4 items-center justify-between'>
-                  <div className='flex flex-row gap-x-4 justify-start items-center'>
-                    <div className='text-2xl cursor-pointer dark:text-white'>
-                      <MinusOutlined />
-                    </div>
-                    <div>
-                      <span className='text-xl text-neutral-500 dark:text-white'>
-                        9
-                      </span>
-                    </div>
-                    <div className='text-2xl cursor-pointer dark:text-white'>
-                      <PlusOutlined />
-                    </div>
-                  </div>
-                  <div className='flex flex-row gap-x-2 text-xl justify-start items-center dark:text-white'>
-                    <div>
-                      <span>X</span>
-                    </div>
-                    <div>
-                      <span>599</span>
-                    </div>
-                  </div>
-                </div>
+    <>
+      <div className='cart flex h-full max-h-[calc(100vh_-_190px)] flex-col justify-center align-middle'>
+        <h2 className='shadow-md text-black text-center font-bold tracking-wide p-6 underline underline-offset-6 text-3xl'>
+          Sepet
+        </h2>
+        <ul className='cart-items p-2 flex flex-col gap-y-6 overflow-y-auto'>
+          {basket.basketItems.map((item: any) => (
+            <BasketItem item={item} key={item._id} />
+          ))}
+        </ul>
+        <div className='cart-totals mt-auto'>
+          <div className='border-t border-b'>
+            <div className='flex justify-between p-4'>
+              <b className='text-xl'>Sepet Toplamı</b>
+              <span className='text-xl'>{basket.total.toFixed(2)}₺</span>
+            </div>
+            <div className='p-4 flex flex-col gap-4'>
+              <div>
+                <Button
+                  onClick={() => navigate('/cart')}
+                  type='text'
+                  icon={<ShoppingOutlined />}
+                  size='large'
+                  className=' flex items-center justify-center w-full text-white font-semibold hover:text-green-900 py-2 px-4 rounded bg-green-900'
+                >
+                  Sepeti Onayla
+                </Button>
               </div>
-            </div>
-          </div>
-        </li>
-      </ul>
-      <div className='cart-totals mt-auto'>
-        <div className='border-t border-b'>
-          <div className='flex justify-between p-4'>
-            <b className='text-xl'>genel toplam</b>
-            <span className='text-xl'>320tl</span>
-          </div>
-          <div className='p-4 flex flex-col gap-4'>
-            <div>
-              <Button
-                type='text'
-                icon={<ShoppingOutlined />}
-                size='large'
-                className=' flex items-center justify-center w-full text-white font-semibold hover:text-green-900 py-2 px-4 rounded bg-green-900'
-              >
-                Sipariş Ver!
-              </Button>
-            </div>
-            <div>
-              <Button
-                type='text'
-                icon={<DeleteOutlined />}
-                size='large'
-                className='
+              <div>
+                <Button
+                  type='text'
+                  size='large'
+                  onClick={handleEmptyBasket}
+                  className='
                  flex items-center justify-center w-full bg-red-900 text-white font-semibold hover:text-red-900 py-2 px-4 rounded'
-              >
-                Siparişi Temizle
-              </Button>
+                >
+                  Sepeti Temizle
+                </Button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
