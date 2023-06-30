@@ -93,19 +93,6 @@ const Header = () => {
           <NavLink
             style={({ isActive }) => {
               return {
-                color: isActive ? '#2fbc49' : '',
-                borderBottom: isActive ? '5px solid ' : '',
-              };
-            }}
-            to={'/customer'}
-            className='menu-link flex flex-col hover:text-[#2fbc49] transition-all'
-          >
-            <ProfileOutlined className='md:text-3xl text-xl ' />
-            <span className='md:text-[18px] text-[12px]'>Müşteri</span>
-          </NavLink>
-          <NavLink
-            style={({ isActive }) => {
-              return {
                 color: isActive ? '#d83232' : '',
                 borderBottom: isActive ? '5px solid ' : '',
               };

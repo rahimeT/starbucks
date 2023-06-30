@@ -157,7 +157,7 @@ const BasketPage = () => {
           <Table
             scroll={{
               x: 1200,
-              y: 300,
+              y: 700,
             }}
             dataSource={basket.basketItems}
             columns={columns}

@@ -1,8 +1,28 @@
-import React from 'react';
-import { Form, Input, Carousel } from 'antd';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Form, Input, Carousel, message } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
 import OperationCarousel from './OperationCarousel';
 const RegisterPage = () => {
+  const [form] = Form.useForm();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const onFinish = (values: any) => {
+    setLoading(true);
+    try {
+      fetch('http://localhost:5005/api/auth/register', {
+        method: 'POST',
+        body: JSON.stringify(values),
+        headers: { 'Content-type': 'application/json; charset=UTF-8' },
+      });
+      message.success('Kayıt İşlemi Başarılı!');
+      setLoading(false);
+      form.resetFields();
+      navigate('/login');
+    } catch (error) {
+      message.error('Kayıt İşlemi Başarısız!');
+    }
+  };
   return (
     <div className='h-screen'>
       <div className='flex justify-between h-full'>
@@ -12,7 +32,7 @@ const RegisterPage = () => {
             src='https://upload.wikimedia.org/wikipedia/sco/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/297px-Starbucks_Corporation_Logo_2011.svg.png?20170312192423'
             alt='logo'
           />
-          <Form layout='vertical' name='basic'>
+          <Form layout='vertical' name='basic' onFinish={onFinish} form={form}>
             <Form.Item
               label='Kullanıcı Adı'
               name={'username'}
@@ -29,6 +49,10 @@ const RegisterPage = () => {
               label='E-mail'
               name={'email'}
               rules={[
+                {
+                  type: 'email',
+                  message: 'Geçersiz E-mail!',
+                },
                 {
                   required: true,
                   message: 'E-mail Alanı Boş Bırakılamaz!',
@@ -71,12 +95,17 @@ const RegisterPage = () => {
               <Input.Password />
             </Form.Item>
             <Form.Item>
-              <button type='submit' className='w-full bg-[#00704A] button-56'>
+              <button
+                type='submit'
+                className='w-full bg-[#00704A] button-56'
+                disabled={loading}
+              >
                 KAYDOL
               </button>
             </Form.Item>
           </Form>
-          <div className='flex justify-center absolute left-0 bottom-10 w-full'>
+          <br />
+          <div className='flex justify-center left-0 bottom-10 w-full'>
             Bir hesabınız var mı?&nbsp;
             <Link to='/login' className='text-special'>
               Şimdi giriş yap...
@@ -88,17 +117,17 @@ const RegisterPage = () => {
             <div className='w-full'>
               <Carousel className='!h-full px-6' autoplay>
                 <OperationCarousel
-                  img='/images/st.avif'
+                  img='/images/carousel1.jpg'
                   title='Güzel Sohbetlere'
                   desc='Geniş Ürün Yelpazesi İle!'
                 />
                 <OperationCarousel
-                  img='/images/st2.avif'
+                  img='/images/carousel2.jpg'
                   title='Sıkı Dostluklara'
                   desc='Dilediğin Vakitte!'
                 />
                 <OperationCarousel
-                  img='/images/st3.avif'
+                  img='/images/carousel3.jpeg'
                   title='Yeni Deneyimlere'
                   desc='Dünyanın Her Yerinde!'
                 />

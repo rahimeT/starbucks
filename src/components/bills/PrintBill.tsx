@@ -30,23 +30,17 @@ const PrintBill = ({ isModalOpen, setIsModalOpen, customer }: any) => {
             <div className='bill-details'>
               <div className='grid sm:grid-cols-4 grid-cols-3 gap-12'>
                 <div className='text-md text-slate-500'>
-                  <p className='font-bold text-slate-700'>Fatura Detayı:</p>
+                  <p className='font-bold text-slate-700'>Fatura İthafen:</p>
                   <p>
                     Sayın{' '}
                     <span className='text-green-600 font-bold'>
                       {customer?.customerName}
                     </span>
                   </p>
-                  <p> Fake Street 123</p>
-                  <p> San Javier </p>
-                  <p> CA 1234</p>
                 </div>
                 <div className='text-md text-slate-500'>
-                  <p className='font-bold text-slate-700'>Fatura:</p>
-                  The Boring Company
-                  <p> Tesla Street 007</p>
-                  <p> Frisco </p>
-                  <p> CA 0000</p>
+                  <p className='font-bold text-slate-700'>Fatura Adresi:</p>
+                  <p>{customer?.customerAddress}</p>
                 </div>
                 <div className='text-md text-slate-500'>
                   <div>
@@ -80,7 +74,7 @@ const PrintBill = ({ isModalOpen, setIsModalOpen, customer }: any) => {
                       scope='col'
                       className='py-3.5 text-left text-sm font-normal text-slate-700 md:pl-0 sm:table-cell hidden'
                     >
-                      Görsel
+                      Ürün
                     </th>
                     <th
                       scope='col'

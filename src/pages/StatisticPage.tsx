@@ -1,63 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/header/Header';
 import StatisticComp from '../components/statistic/StatisticComp';
-import { Area, Pie } from '@ant-design/plots';
+import { Pie } from '@ant-design/plots';
 const StatisticPage = () => {
   const [data, setData] = useState([]);
 
-  const asyncFetch = () => {
-    fetch(
-      'https://gw.alipayobjects.com/os/bmw-prod/360c3eae-0c73-46f0-a982-4746a6095010.json'
-    )
-      .then((response) => response.json())
-      .then((json) => setData(json))
-      .catch((error) => {
-        console.log('fetch data failed', error);
-      });
+  const getAllProducts = async () => {
+    try {
+      const res = await fetch('http://localhost:5005/api/bills/get-all');
+      const data = await res.json();
+      setData(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
+  console.log('data', data);
 
   useEffect(() => {
-    asyncFetch();
+    getAllProducts();
   }, []);
 
-  const data2 = [
-    {
-      type: '分类一',
-      value: 27,
-    },
-    {
-      type: '分类二',
-      value: 25,
-    },
-    {
-      type: '分类三',
-      value: 18,
-    },
-    {
-      type: '分类四',
-      value: 15,
-    },
-    {
-      type: '分类五',
-      value: 10,
-    },
-    {
-      type: '其他',
-      value: 5,
-    },
-  ];
-
-  const config2 = {
+  const pieConfig = {
     appendPadding: 10,
-    data: data2,
-    angleField: 'value',
-    colorField: 'type',
+    data,
+    angleField: 'subTotal',
+    colorField: 'customerName',
     radius: 1,
     innerRadius: 0.6,
     label: {
       type: 'inner',
       offset: '-50%',
-      content: '{value}',
+      content: '{value}₺',
       style: {
         textAlign: 'center',
         fontSize: 14,
@@ -79,10 +52,45 @@ const StatisticPage = () => {
           overflow: 'hidden',
           textOverflow: 'ellipsis',
         },
-        content: 'AntV\nG2Plot',
+        content: 'Satış Çevresi',
       },
     },
   };
+
+  const calculateTotalAmount = (data: any[]) => {
+    const amount = data.reduce((total, item) => item?.totalAmount + total, 0);
+    return `${amount.toFixed(2)}₺`;
+  };
+
+  const calculateTotalCustomer = (data: any[]) => {
+    let newCustomerNameArr: any[] = []; // Farklı isimleri saklamak için boş bir dizi
+
+    for (let i = 0; i < data.length; i++) {
+      let obje = data[i];
+
+      const existCustomerName = newCustomerNameArr.find(
+        (item) => item?.customerName === obje.customerName
+      );
+      if (!existCustomerName) {
+        newCustomerNameArr.push(obje);
+      }
+    }
+
+    return newCustomerNameArr.length;
+  };
+
+  const calculateTotalSaleProduct = (data: any[]) => {
+    const totalProduct = data.reduce((total, items) => {
+      let mapTotal = 0;
+      for (let index = 0; index < items?.cartItems.length; index++) {
+        const item = items?.cartItems[index];
+        mapTotal += item.quantity;
+      }
+      return mapTotal + total;
+    }, 0);
+    return totalProduct;
+  };
+
   return (
     <>
       <Header />
@@ -93,32 +101,37 @@ const StatisticPage = () => {
             Hoş geldin{' '}
             <span className='text-green-800 font-bold text-xl'>admin</span>.
           </h2>
-          <div className='statistic-cards grid xl:grid-cols-4 md:grid-cols-2 my-10 md:gap-10 gap-4'>
-            <StatisticComp
-              title={'Toplam Müşteri'}
-              amount={'10'}
-              img={'images/user.png'}
-            />
-            <StatisticComp
-              title={'Toplam Kazanç'}
-              amount={'660.96 ₺'}
-              img={'images/money.png'}
-            />
-            <StatisticComp
-              title={'Toplam Satış'}
-              amount={'6'}
-              img={'images/sale.png'}
-            />
-            <StatisticComp
-              title={'Toplam Ürün'}
-              amount={'28'}
-              img={'images/product.png'}
-            />
-          </div>
+          {data && (
+            <div className='statistic-cards grid xl:grid-cols-4 md:grid-cols-2 mt-10 md:gap-10 gap-4'>
+              <StatisticComp
+                title={'Toplam Tekil Müşteri'}
+                amount={calculateTotalCustomer(data)}
+                img={'images/user.png'}
+              />
+              <StatisticComp
+                title={'Toplam Kazanç'}
+                amount={calculateTotalAmount(data)}
+                img={'images/money.png'}
+              />
+              <StatisticComp
+                title={'Toplam Kesilen Fatura'}
+                amount={data.length}
+                img={'images/sale.png'}
+              />
+              <StatisticComp
+                title={'Toplam Satılan Ürün'}
+                amount={calculateTotalSaleProduct(data)}
+                img={'images/product.png'}
+              />
+            </div>
+          )}
           <div className='gap-10 lg:flex-row flex-col items-center mt-20'>
-            <div className='lg:h-full h-72 '>
+            <div
+              className='lg:h-full h-72 flex text-center justify-center align-center p-10 '
+              style={{ background: '#F5F5F5', borderRadius: '5rem' }}
+            >
               {/* @ts-ignore */}
-              <Pie {...config2} />
+              <Pie {...pieConfig} />
             </div>
           </div>
         </div>

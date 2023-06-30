@@ -49,7 +49,7 @@ const BillPage = () => {
       },
     },
     {
-      title: 'Oluşturma Tarihi',
+      title: 'İşlem Tarihi',
       dataIndex: 'createdAt',
       key: 'createdAt',
       render: (text: any) => {
@@ -116,7 +116,7 @@ const BillPage = () => {
         <Table
           scroll={{
             x: 1000,
-            y: 300,
+            y: 700,
           }}
           dataSource={billItems}
           columns={columns}
