@@ -1,41 +1,90 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Carousel, Checkbox, Form, Input, message } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import OperationCarousel from './OperationCarousel';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { reset, login } from '../../redux/features/AuthSlice';
+import Spinner from './Spinner';
 
 const LoginPage = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  const { user, isHata, isBasari, isYukleniyor, mesaj } = useSelector(
+    // @ts-ignore
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+    if (isHata) {
+      message.error(mesaj);
+    }
+
+    if (isBasari || user) {
+      navigate('/');
+    }
+
+    dispatch(reset());
+  }, [user, isHata, isBasari, mesaj, navigate, dispatch]);
 
   const onFinish = async (values: any) => {
+    console.log('values', values);
+
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5005/api/auth/login', {
-        method: 'POST',
-        body: JSON.stringify(values),
-        headers: { 'Content-type': 'application/json; charset=UTF-8' },
-      });
-      const user = await res.json();
-      if (res.status === 200) {
-        localStorage.setItem(
-          'user',
-          JSON.stringify({ username: user.username, email: user.email })
-        );
-        message.success('Giriş İşlemi Başarılı!');
-        form.resetFields();
-        navigate('/');
-      } else if (res.status === 404) {
-        message.error('Böyle bir kullanıcı bulunamadı!');
-      } else if (res.status === 403) {
-        message.error('Şifre yanlış!');
-      }
+      // const res = await fetch('http://localhost:5005/api/auth/login', {
+      //   method: 'POST',
+      //   body: JSON.stringify(values),
+      //   headers: { 'Content-type': 'application/json; charset=UTF-8' },
+      // });
+
+      // const res = await axios.post('http://localhost:5005/api/auth/login', {
+      //   data: {
+      //     email: values.email,
+      //     password: values.password,
+      //   },
+      // });
+
+      // console.log('response', res);
+      // console.log('response.status', res.status);
+
+      // const user = await res.data.user;
+      // const token = await res.data.token;
+      // if (res.status === 200) {
+      //   localStorage.setItem(
+      //     'user',
+      //     JSON.stringify({ username: user.username, email: user.email })
+      //   );
+      //   localStorage.setItem('token', token);
+      //   message.success('Giriş İşlemi Başarılı!');
+      //   form.resetFields();
+      //   navigate('/');
+      // } else if (res.status === 404) {
+      //   message.error('Böyle bir kullanıcı bulunamadı!');
+      // } else if (res.status === 403) {
+      //   message.error('Şifre yanlış!');
+      // }
+      const userData = {
+        email: values.email,
+        password: values.password,
+      };
+      // @ts-ignore
+      dispatch(login(userData));
+
       setLoading(false);
     } catch (error) {
       message.error('Giriş İşlemi Başarısız!');
+      console.log('error', error);
+
       setLoading(false);
     }
   };
+
+  if (isYukleniyor) {
+    <Spinner />;
+  }
 
   return (
     <div className='h-screen'>
@@ -47,6 +96,7 @@ const LoginPage = () => {
             alt='logo'
           />
           <Form
+            form={form}
             layout='vertical'
             name='basic'
             onFinish={onFinish}
@@ -99,7 +149,7 @@ const LoginPage = () => {
             </Form.Item>
           </Form>
           <br />
-          <div className='flex justify-center absolute left-0 bottom-10 w-full'>
+          <div className='flex justify-center left-0 bottom-10 w-full'>
             Henüz bir hesabınız yok mu?&nbsp;
             <Link to='/register' className='text-special'>
               Şimdi kaydol

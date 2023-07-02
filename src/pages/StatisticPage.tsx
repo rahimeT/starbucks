@@ -2,7 +2,14 @@ import React, { useEffect, useState } from 'react';
 import Header from '../components/header/Header';
 import StatisticComp from '../components/statistic/StatisticComp';
 import { Pie } from '@ant-design/plots';
+import { useSelector } from 'react-redux';
 const StatisticPage = () => {
+  const { user } = useSelector(
+    // @ts-ignore
+    (state) => state.auth
+  );
+  console.log('user', user.user.username);
+
   const [data, setData] = useState([]);
 
   const getAllProducts = async () => {
@@ -97,10 +104,17 @@ const StatisticPage = () => {
       <div className='px-6 md:pb-0 pb-20'>
         <h1 className='text-4xl font-bold text-center mb-4'>İstatistiklerim</h1>
         <div className='statistic-section'>
-          <h2 className='text-lg'>
-            Hoş geldin{' '}
-            <span className='text-green-800 font-bold text-xl'>admin</span>.
-          </h2>
+          {user && (
+            <h2 className='text-lg'>
+              Hoş geldin{' '}
+              <span
+                className='text-green-800 font-bold text-xl'
+                style={{ fontSize: '30px' }}
+              >
+                {user.user.username}
+              </span>
+            </h2>
+          )}
           {data && (
             <div className='statistic-cards grid xl:grid-cols-4 md:grid-cols-2 mt-10 md:gap-10 gap-4'>
               <StatisticComp

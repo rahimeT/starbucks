@@ -1,9 +1,9 @@
 .category-item {
-  @apply transition text-3xl ease-in-out hover:-translate-y-1 min-w-[200px] cursor-pointer text-gray-500 hover:text-black hover:underline;
+  @apply transition text-3xl ease-in-out hover:-translate-y-1 min-w-[200px] cursor-pointer text-black hover:text-black hover:underline;
 }
 
 .hr-style {
-  border-top: 3px dashed gray;
+  border-top: 3px dashed black;
   margin-top: 1rem;
   margin-bottom: 1rem;
 }

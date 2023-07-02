@@ -7,6 +7,7 @@ import {
   plusProduct,
 } from '../../redux/features/BasketSlice';
 import { message } from 'antd';
+import './index.css';
 
 const BasketItem = ({ item }: any) => {
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ const BasketItem = ({ item }: any) => {
               <div className='flex flex-row gap-x-4 items-center justify-between'>
                 <div className='flex flex-row gap-x-4 justify-start items-center'>
                   <div
-                    className='text-2xl cursor-pointer dark:text-white'
+                    className='text-2xl cursor-pointer dark:text-white basketButton'
                     onClick={handleMinusItem}
                   >
                     {item.quantity === 1 ? (
@@ -56,7 +57,7 @@ const BasketItem = ({ item }: any) => {
                     </span>
                   </div>
                   <div
-                    className='text-2xl cursor-pointer dark:text-white'
+                    className='text-2xl cursor-pointer dark:text-white basketButton'
                     onClick={handlePlusItem}
                   >
                     <PlusOutlined />

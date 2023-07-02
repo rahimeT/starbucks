@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import BasketItem from './BasketItem';
 import { emptyBasket } from '../../redux/features/BasketSlice';
 import { useNavigate } from 'react-router-dom';
+
 const Basket = () => {
   // @ts-ignore
   const basket = useSelector((state) => state.basket);
@@ -57,7 +58,7 @@ const Basket = () => {
                   type='text'
                   icon={<ShoppingOutlined />}
                   size='large'
-                  className=' flex items-center justify-center w-full text-white font-semibold hover:text-green-900 py-2 px-4 rounded bg-green-900'
+                  className='flex items-center justify-center w-full text-white font-semibold hover:text-green-900 py-2 px-4 rounded bg-green-900'
                 >
                   Sepeti Onayla
                 </Button>

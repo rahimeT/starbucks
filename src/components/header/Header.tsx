@@ -3,19 +3,30 @@ import {
   CoffeeOutlined,
   LogoutOutlined,
   FileDoneOutlined,
-  ProfileOutlined,
   PieChartOutlined,
-  ShoppingCartOutlined,
+  ShoppingOutlined,
+  TeamOutlined,
 } from '@ant-design/icons';
 import { Input } from 'antd';
 import { Badge } from 'antd';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import './index.css';
+import { logout, reset } from '../../redux/features/AuthSlice';
 
 const Header = () => {
   // @ts-ignore
   const basket = useSelector((state) => state.basket);
+  // @ts-ignore
+  const { user } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+
+  const onLogout = () => {
+    // @ts-ignore
+    dispatch(logout());
+    dispatch(reset());
+  };
 
   return (
     <div className='border-b  '>
@@ -60,7 +71,7 @@ const Header = () => {
               to={'/cart'}
               className='menu-link flex flex-col hover:text-[#54399e] transition-all'
             >
-              <ShoppingCartOutlined className='md:text-4xl text-2xl' />
+              <ShoppingOutlined className='md:text-4xl text-2xl' />
               <span className='md:text-[18px] text-[12px]'>Sepet</span>
             </NavLink>
           </Badge>
@@ -90,19 +101,37 @@ const Header = () => {
             <PieChartOutlined className='md:text-3xl text-xl ' />
             <span className='md:text-[18px] text-[12px]'>İstatistik</span>
           </NavLink>
-          <NavLink
-            style={({ isActive }) => {
-              return {
-                color: isActive ? '#d83232' : '',
-                borderBottom: isActive ? '5px solid ' : '',
-              };
-            }}
-            to={'/'}
-            className='menu-link flex flex-col hover:text-[#d83232] transition-all'
-          >
-            <LogoutOutlined className='md:text-3xl text-xl' />
-            <span className='md:text-[18px] text-[12px]'>Çıkış</span>
-          </NavLink>
+
+          {user ? (
+            <NavLink
+              style={({ isActive }) => {
+                return {
+                  color: isActive ? '#d83232' : '',
+                  borderBottom: isActive ? '5px solid ' : '',
+                };
+              }}
+              to={'/login'}
+              onClick={onLogout}
+              className='menu-link flex flex-col hover:text-[#d83232] transition-all'
+            >
+              <LogoutOutlined className='md:text-3xl text-xl' />
+              <span className='md:text-[18px] text-[12px]'>Çıkış</span>
+            </NavLink>
+          ) : (
+            <NavLink
+              style={({ isActive }) => {
+                return {
+                  color: isActive ? '#d83232' : '',
+                  borderBottom: isActive ? '5px solid ' : '',
+                };
+              }}
+              to={'/register'}
+              className='menu-link flex flex-col hover:text-[#d83232] transition-all'
+            >
+              <TeamOutlined className='md:text-3xl text-xl' />
+              <span className='md:text-[18px] text-[12px]'>Üye Ol</span>
+            </NavLink>
+          )}
         </div>
       </header>
     </div>

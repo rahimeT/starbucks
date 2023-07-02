@@ -1,28 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Input, Carousel, message } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import OperationCarousel from './OperationCarousel';
+import { useDispatch, useSelector } from 'react-redux';
+import Spinner from './Spinner';
+import { register, reset } from '../../redux/features/AuthSlice';
 const RegisterPage = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
+  const { user, isHata, isBasari, isYukleniyor, mesaj } = useSelector(
+    // @ts-ignore
+    (state) => state.auth
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isHata) {
+      message.error(mesaj);
+    }
+
+    if (isBasari || user) {
+      navigate('/');
+    }
+
+    dispatch(reset());
+  }, [user, isHata, isBasari, mesaj, navigate, dispatch]);
 
   const onFinish = (values: any) => {
     setLoading(true);
     try {
-      fetch('http://localhost:5005/api/auth/register', {
-        method: 'POST',
-        body: JSON.stringify(values),
-        headers: { 'Content-type': 'application/json; charset=UTF-8' },
-      });
+      // @ts-ignore
+      dispatch(register(values));
       message.success('Kayıt İşlemi Başarılı!');
       setLoading(false);
       form.resetFields();
-      navigate('/login');
+      // navigate('/login');
     } catch (error) {
       message.error('Kayıt İşlemi Başarısız!');
     }
   };
+  if (isYukleniyor) {
+    <Spinner />;
+  }
   return (
     <div className='h-screen'>
       <div className='flex justify-between h-full'>

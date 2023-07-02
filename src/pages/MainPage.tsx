@@ -4,12 +4,22 @@ import Categories from '../components/categories/Categories';
 import Header from '../components/header/Header';
 import Products from '../components/products/Products';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const MainPage = () => {
+  const navigate = useNavigate();
   const [categoriesData, setCategoriesData] = useState<any[]>([]);
   const [productsData, setProductsData] = useState<any[]>([]);
   // @ts-ignore
   const basket = useSelector((state) => state.basket);
+  // @ts-ignore
+  const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/login');
+    }
+  }, [user, navigate]);
 
   const getAllCategories = async () => {
     try {
