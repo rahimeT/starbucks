@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Carousel, Checkbox, Form, Input, message } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import OperationCarousel from './OperationCarousel';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { reset, login } from '../../redux/features/AuthSlice';
 import Spinner from './Spinner';
@@ -30,8 +29,6 @@ const LoginPage = () => {
   }, [user, isHata, isBasari, mesaj, navigate, dispatch]);
 
   const onFinish = async (values: any) => {
-    console.log('values', values);
-
     setLoading(true);
     try {
       // const res = await fetch('http://localhost:5005/api/auth/login', {
