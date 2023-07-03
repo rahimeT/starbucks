@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import MainPage from './pages/MainPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import BasketPage from './pages/BasketPage';
@@ -7,9 +7,13 @@ import StatisticPage from './pages/StatisticPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import LoginPage from './pages/auth/LoginPage';
 import ProductsSettings from './pages/ProductsSettings';
-import jwt_decode from 'jwt-decode';
-
+import { useSelector } from 'react-redux';
 const App = () => {
+  // @ts-ignore
+  const basket = useSelector((state) => state.basket);
+  useEffect(() => {
+    localStorage.setItem('basket', JSON.stringify(basket));
+  }, [basket]);
   return (
     <>
       <BrowserRouter>

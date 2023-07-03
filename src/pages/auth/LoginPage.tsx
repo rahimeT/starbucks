@@ -31,50 +31,18 @@ const LoginPage = () => {
   const onFinish = async (values: any) => {
     setLoading(true);
     try {
-      // const res = await fetch('http://localhost:5005/api/auth/login', {
-      //   method: 'POST',
-      //   body: JSON.stringify(values),
-      //   headers: { 'Content-type': 'application/json; charset=UTF-8' },
-      // });
-
-      // const res = await axios.post('http://localhost:5005/api/auth/login', {
-      //   data: {
-      //     email: values.email,
-      //     password: values.password,
-      //   },
-      // });
-
-      // console.log('response', res);
-      // console.log('response.status', res.status);
-
-      // const user = await res.data.user;
-      // const token = await res.data.token;
-      // if (res.status === 200) {
-      //   localStorage.setItem(
-      //     'user',
-      //     JSON.stringify({ username: user.username, email: user.email })
-      //   );
-      //   localStorage.setItem('token', token);
-      //   message.success('Giriş İşlemi Başarılı!');
-      //   form.resetFields();
-      //   navigate('/');
-      // } else if (res.status === 404) {
-      //   message.error('Böyle bir kullanıcı bulunamadı!');
-      // } else if (res.status === 403) {
-      //   message.error('Şifre yanlış!');
-      // }
       const userData = {
         email: values.email,
         password: values.password,
       };
       // @ts-ignore
-      dispatch(login(userData));
-
+      const res = await dispatch(login(userData));
+      if (res.payload === 'Request failed with status code 403') {
+        message.error('Yanlış şifre!');
+      }
       setLoading(false);
     } catch (error) {
       message.error('Giriş İşlemi Başarısız!');
-      console.log('error', error);
-
       setLoading(false);
     }
   };

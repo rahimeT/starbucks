@@ -9,16 +9,18 @@ import {
 } from '@ant-design/icons';
 import { Input } from 'antd';
 import { Badge } from 'antd';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './index.css';
 import { logout, reset } from '../../redux/features/AuthSlice';
 
-const Header = () => {
+const Header = ({ setSearch }: any) => {
   // @ts-ignore
   const basket = useSelector((state) => state.basket);
   // @ts-ignore
   const { user } = useSelector((state) => state.auth);
+
+  const { pathname } = useLocation();
 
   const dispatch = useDispatch();
 
@@ -47,14 +49,17 @@ const Header = () => {
             </NavLink>
           </div>
         </div>
-        <div className='header-search flex-1'>
-          <Input
-            placeholder='Ne aramıştınız?'
-            size='large'
-            prefix={<CoffeeOutlined className='text-2xl mb-2' />}
-            className='rounded-full max-w-[1200] h-14 border-b-2 border-green-600 focus-within:border-green-600'
-          />
-        </div>
+        {pathname === '/' && (
+          <div className='header-search flex-1'>
+            <Input
+              onChange={(e: any) => setSearch(e.target.value.toLowerCase())}
+              placeholder='Ne aramıştınız?'
+              size='large'
+              prefix={<CoffeeOutlined className='text-2xl mb-2' />}
+              className='rounded-full max-w-[1200] h-14 border-b-2 border-green-600 focus-within:border-green-600'
+            />
+          </div>
+        )}
         <div className='header-menu flex justify-between items-center gap-10 md:static fixed z-10 bottom-0 md:w-auto w-screen md:transparent bg-white left-0 md:border-t-0 border-t md:p-0 p-4'>
           <Badge
             count={basket.basketItems.length}

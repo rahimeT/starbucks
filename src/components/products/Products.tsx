@@ -1,18 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './products.css';
 import ProductItem from './ProductItem';
 import ProductItemAdd from './ProductItemAdd';
 import { useNavigate } from 'react-router-dom';
 import { EditOutlined } from '@ant-design/icons';
 
-const Products = ({ productsData, setProductsData, categoriesData }: any) => {
+const Products = ({
+  productsData,
+  setProductsData,
+  categoriesData,
+  filtered,
+  search,
+}: any) => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const navigate = useNavigate();
+
   return (
     <div className='product-wrapper grid gap-8 grid-cols-[repeat(auto-fill,_300px)] justify-center align-middle '>
-      {productsData.map((product: any) => (
-        <ProductItem product={product} key={product._id} />
-      ))}
+      {filtered
+        .filter(
+          (item: any) =>
+            item.title.toLowerCase().includes(search) ||
+            item.desc.toLowerCase().includes(search)
+        )
+        .map((product: any) => (
+          <ProductItem product={product} key={product._id} />
+        ))}
       <div className='flex flex-col items-center justify-between align-middle'>
         <div>
           <button onClick={() => setIsAddModalOpen(true)}>

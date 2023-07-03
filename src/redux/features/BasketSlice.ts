@@ -1,9 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  basketItems: [],
-  total: 0,
-  tax: 8,
+  basketItems: localStorage.getItem('basket')
+    ? // @ts-ignore
+      JSON.parse(localStorage.getItem('basket')).basketItems
+    : [],
+  total: localStorage.getItem('basket')
+    ? // @ts-ignore
+      JSON.parse(localStorage.getItem('basket')).total
+    : 0,
 };
 
 export const basketSlice = createSlice({

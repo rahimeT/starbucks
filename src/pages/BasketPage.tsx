@@ -12,8 +12,6 @@ const BasketPage = () => {
 
   const dispatch = useDispatch();
 
-  console.log('basket', basket);
-
   const columns = [
     {
       title: 'Ürün Adı',
@@ -157,7 +155,7 @@ const BasketPage = () => {
           <Table
             scroll={{
               x: 1200,
-              y: 700,
+              y: 350,
             }}
             dataSource={basket.basketItems}
             columns={columns}

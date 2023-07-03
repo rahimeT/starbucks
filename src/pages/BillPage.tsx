@@ -1,4 +1,4 @@
-import { Button, Table } from 'antd';
+import { Button, Table, Spin } from 'antd';
 import { useEffect, useState } from 'react';
 import PrintBill from '../components/bills/PrintBill';
 import Header from '../components/header/Header';
@@ -16,8 +16,6 @@ const BillPage = () => {
       console.log(error);
     }
   };
-
-  console.log('record', record);
 
   useEffect(() => {
     getBills();
@@ -116,12 +114,13 @@ const BillPage = () => {
         <Table
           scroll={{
             x: 1000,
-            y: 700,
+            y: 500,
           }}
           dataSource={billItems}
           columns={columns}
           bordered
           pagination={false}
+          rowKey='_id'
         />
       </div>
       <PrintBill

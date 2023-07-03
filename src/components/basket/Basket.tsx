@@ -17,23 +17,6 @@ const Basket = () => {
   };
   const navigate = useNavigate();
 
-  // const calculateTotalValue = (items: any) => {
-  //   let total = 0;
-
-  //   for (let i = 0; i < items.length; i++) {
-  //     let obje = items[i];
-  //     let adet = obje.quantity;
-  //     let fiyat = obje.price;
-
-  //     let objeToplam = adet * fiyat;
-  //     total += objeToplam;
-  //   }
-
-  //   return total;
-  // };
-
-  // let totalValue = calculateTotalValue(basket.basketItems);
-
   return (
     <>
       <div className='cart flex h-full max-h-[calc(100vh_-_190px)] flex-col justify-center align-middle'>
