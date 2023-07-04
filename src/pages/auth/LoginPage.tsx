@@ -97,12 +97,6 @@ const LoginPage = () => {
             >
               <Input.Password />
             </Form.Item>
-            <Form.Item name={'remember'} valuePropName='checked'>
-              <div className='flex justify-between items-center'>
-                <Checkbox>Beni Hatırla</Checkbox>
-                {/* <Link>Forgot Password?</Link> */}
-              </div>
-            </Form.Item>
             <Form.Item>
               <button
                 type='submit'
