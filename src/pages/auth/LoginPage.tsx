@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Carousel, Checkbox, Form, Input, message } from 'antd';
+import { Carousel, Form, Input, message } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import OperationCarousel from './OperationCarousel';
 import { useDispatch, useSelector } from 'react-redux';
