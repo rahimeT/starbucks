@@ -61,25 +61,32 @@ const Header = ({ setSearch }: any) => {
           </div>
         )}
         <div className='header-menu flex justify-between items-center gap-10 md:static fixed z-10 bottom-0 md:w-auto w-screen md:transparent bg-white left-0 md:border-t-0 border-t md:p-0 p-4'>
-          <Badge
-            count={basket.basketItems.length}
-            offset={[0, 0]}
-            style={{ backgroundColor: '#00704a' }}
-          >
-            <NavLink
-              style={({ isActive }) => {
-                return {
-                  color: isActive ? '#54399e' : '',
-                  borderBottom: isActive ? '5px solid ' : '',
-                };
-              }}
-              to={'/cart'}
-              className='menu-link flex flex-col hover:text-[#54399e] transition-all'
+          <div className='mb-2'>
+            <Badge
+              count={basket.basketItems.length}
+              offset={[0, 0]}
+              style={{ backgroundColor: '#00704a' }}
             >
-              <ShoppingOutlined className='md:text-4xl text-2xl' />
-              <span className='md:text-[18px] text-[12px]'>Sepet</span>
-            </NavLink>
-          </Badge>
+              <NavLink
+                style={({ isActive }) => {
+                  return {
+                    color: isActive ? '#54399e' : '',
+                    borderBottom: isActive ? '5px solid ' : '',
+                  };
+                }}
+                to={'/cart'}
+                className='menu-link flex flex-col hover:text-[#54399e] transition-all'
+              >
+                <ShoppingOutlined className='md:text-4xl text-2xl' />
+                <span
+                  className='md:text-[18px] text-[12px]'
+                  style={{ fontSize: '20px' }}
+                >
+                  Sepet
+                </span>
+              </NavLink>
+            </Badge>
+          </div>
           <NavLink
             to={'/bills'}
             style={({ isActive }) => {

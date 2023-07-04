@@ -8,6 +8,7 @@ import RegisterPage from './pages/auth/RegisterPage';
 import LoginPage from './pages/auth/LoginPage';
 import ProductsSettings from './pages/ProductsSettings';
 import { useSelector } from 'react-redux';
+import { ErrorPage } from './pages/ErrorPage';
 const App = () => {
   // @ts-ignore
   const basket = useSelector((state) => state.basket);
@@ -25,7 +26,7 @@ const App = () => {
           <Route path='/register' element={<RegisterPage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/products' element={<ProductsSettings />} />
-          <Route path='*' element={<p>Not Found</p>}></Route>
+          <Route path='*' element={<ErrorPage />}></Route>
         </Routes>
       </BrowserRouter>
     </>
