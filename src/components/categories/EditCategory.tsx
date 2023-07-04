@@ -28,12 +28,15 @@ const EditCategory = ({
 
   const handleOk = () => {
     try {
-      fetch('http://localhost:5005/api/categories/delete-category', {
-        method: 'DELETE',
-        // @ts-ignore
-        body: JSON.stringify({ categoryId: deleteRow._id }),
-        headers: { 'Content-type': 'application/json; charset=UTF-8' },
-      });
+      fetch(
+        process.env.REACT_APP_SERVER_URL + '/api/categories/delete-category',
+        {
+          method: 'DELETE',
+          // @ts-ignore
+          body: JSON.stringify({ categoryId: deleteRow._id }),
+          headers: { 'Content-type': 'application/json; charset=UTF-8' },
+        }
+      );
       message.success('Kategori başarıyla silindi.');
       setCategoriesData(
         // @ts-ignore
@@ -89,12 +92,15 @@ const EditCategory = ({
 
   const onFinish = (values: any) => {
     try {
-      fetch('http://localhost:5005/api/categories/update-category', {
-        method: 'PUT',
-        // @ts-ignore
-        body: JSON.stringify({ ...values, categoryId: editingRow._id }),
-        headers: { 'Content-type': 'application/json; charset=UTF-8' },
-      });
+      fetch(
+        process.env.REACT_APP_SERVER_URL + '/api/categories/update-category',
+        {
+          method: 'PUT',
+          // @ts-ignore
+          body: JSON.stringify({ ...values, categoryId: editingRow._id }),
+          headers: { 'Content-type': 'application/json; charset=UTF-8' },
+        }
+      );
       message.success('Kategori başarıyla güncellendi.');
       setCategoriesData(
         categoriesData.map((item: any) => {

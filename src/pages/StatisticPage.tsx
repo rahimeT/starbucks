@@ -14,7 +14,9 @@ const StatisticPage = () => {
 
   const getAllProducts = async () => {
     try {
-      const res = await fetch('http://localhost:5005/api/bills/get-all');
+      const res = await fetch(
+        process.env.REACT_APP_SERVER_URL + '/api/bills/get-all'
+      );
       const data = await res.json();
       setData(data);
     } catch (error) {

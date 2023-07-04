@@ -29,7 +29,7 @@ const CreateBill = ({
 
   const onFinish = (values: any) => {
     try {
-      fetch('http://localhost:5005/api/bills/create-bill', {
+      fetch(process.env.REACT_APP_SERVER_URL + '/api/bills/create-bill', {
         method: 'POST',
         body: JSON.stringify({
           ...values,

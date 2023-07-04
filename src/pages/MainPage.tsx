@@ -20,7 +20,7 @@ const MainPage = () => {
   const getAllCategories = async () => {
     try {
       const res = await fetch(
-        'http://localhost:5005/api/categories/get-all-categories'
+        process.env.REACT_APP_SERVER_URL + '/api/categories/get-all-categories'
       );
       const data = await res.json();
       data &&
@@ -38,7 +38,7 @@ const MainPage = () => {
   const getAllProducts = async () => {
     try {
       const res = await fetch(
-        'http://localhost:5005/api/products/get-all-products'
+        process.env.REACT_APP_SERVER_URL + '/api/products/get-all-products'
       );
       const data = await res.json();
       setProductsData(data);
