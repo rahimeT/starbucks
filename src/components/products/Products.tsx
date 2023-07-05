@@ -20,8 +20,8 @@ const Products = ({
       {filtered
         .filter(
           (item: any) =>
-            item.title.toLowerCase().includes(search) ||
-            item.desc.toLowerCase().includes(search)
+            item.title?.toLowerCase().includes(search) ||
+            item.desc?.toLowerCase().includes(search)
         )
         .map((product: any) => (
           <ProductItem product={product} key={product._id} />

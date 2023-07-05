@@ -39,6 +39,8 @@ const LoginPage = () => {
       const res = await dispatch(login(userData));
       if (res.payload === 'Request failed with status code 403') {
         message.error('Yanlış şifre!');
+      } else if (res.payload === 'Request failed with status code 404') {
+        message.error('Kullanıcı bulunamadı!');
       }
       setLoading(false);
     } catch (error) {

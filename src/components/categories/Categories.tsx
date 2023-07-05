@@ -23,21 +23,27 @@ const Categories = ({
       );
     }
   }, [productsData, setFiltered, categoryTitle]);
+
   return (
-    <>
+    <div
+      style={{ borderRight: '2mm ridge rgba(0, 132, 94, .7)' }}
+      className='p-5'
+    >
       <ul className='flex md:flex-col gap-8'>
         {categoriesData &&
-          categoriesData.map((item: any) => (
-            <li
-              onClick={() => setCategoryTitle(item.title)}
-              className={`category-item transition duration-300 ease-in-out ${
-                item.title === categoryTitle && 'bg-green-900	 text-white'
-              }`}
-              key={item._id}
-            >
-              <span>{item.title}</span>
-            </li>
-          ))}
+          categoriesData
+            .sort((a: any, b: any) => a.title.localeCompare(b.title))
+            .map((item: any) => (
+              <li
+                onClick={() => setCategoryTitle(item.title)}
+                className={`category-item transition duration-300 ease-in-out ${
+                  item.title === categoryTitle && 'bg-green-900	 text-white'
+                }`}
+                key={item._id}
+              >
+                <span>{item.title}</span>
+              </li>
+            ))}
         <hr className='hr-style' />
         <li
           className='category-item hover:opacity-90'
@@ -68,7 +74,7 @@ const Categories = ({
           setCategoriesData={setCategoriesData}
         />
       </ul>
-    </>
+    </div>
   );
 };
 

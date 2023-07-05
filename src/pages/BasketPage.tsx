@@ -147,6 +147,7 @@ const BasketPage = () => {
   const subTotal = basket.total.toFixed(2);
   const taxTotal = ((basket.total * basket.tax) / 100).toFixed(2);
   const total = basket.total + (basket.total * basket.tax) / 100;
+
   return (
     <>
       <Header />

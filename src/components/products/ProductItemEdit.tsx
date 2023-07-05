@@ -81,7 +81,7 @@ const ProductItemEdit = () => {
       width: '8%',
     },
     {
-      title: 'Action',
+      title: 'Ürün İşlemi',
       dataIndex: 'action',
       width: '8%',
       render: (_: any, record: any) => {
@@ -161,7 +161,7 @@ const ProductItemEdit = () => {
   const getAllProducts = async () => {
     try {
       const res = await fetch(
-        process.env.REACT_APP_SERVER_URL + '/api/products/get-all-product'
+        process.env.REACT_APP_SERVER_URL + '/api/products/get-all-products'
       );
       const data = await res.json();
       setProducts(data);

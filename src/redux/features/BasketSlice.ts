@@ -9,6 +9,7 @@ const initialState = {
     ? // @ts-ignore
       JSON.parse(localStorage.getItem('basket')).total
     : 0,
+  tax: 8,
 };
 
 export const basketSlice = createSlice({

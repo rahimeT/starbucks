@@ -23,7 +23,6 @@ const StatisticPage = () => {
       console.log(error);
     }
   };
-  console.log('data', data);
 
   useEffect(() => {
     getAllProducts();
@@ -116,7 +115,7 @@ const StatisticPage = () => {
                   className='text-green-800 font-bold text-xl'
                   style={{ fontSize: '24px', textDecoration: 'underline' }}
                 >
-                  {user.user.username}
+                  {user.username}
                 </span>
               </h2>
             )}

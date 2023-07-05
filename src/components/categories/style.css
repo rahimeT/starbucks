@@ -3,7 +3,7 @@
 }
 
 .hr-style {
-  border-top: 3px dashed black;
+  border-top: 3px solid green;
   margin-top: 1rem;
   margin-bottom: 1rem;
 }

@@ -13,7 +13,7 @@ const ProductItem = ({ product }: any) => {
 
   return (
     <div className='product-item shadow-lg hover:shadow-2xl select-none transform motion-safe:hover:-translate-y-2 motion-safe:hover:scale-80 transition ease-in-out duration-500 border border-gray-200 bg-white rounded-lg'>
-      <div style={{ minHeight: '62%' }}>
+      <div>
         <img
           className='p-8 rounded-full object-cover w-full'
           src={product.img}
