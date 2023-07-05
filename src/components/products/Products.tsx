@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './products.css';
 import ProductItem from './ProductItem';
 import ProductItemAdd from './ProductItemAdd';
@@ -23,6 +23,7 @@ const Products = ({
             item.title?.toLowerCase().includes(search) ||
             item.desc?.toLowerCase().includes(search)
         )
+        .sort((a: any, b: any) => a.title.localeCompare(b.title))
         .map((product: any) => (
           <ProductItem product={product} key={product._id} />
         ))}
